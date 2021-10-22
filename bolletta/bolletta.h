@@ -17,8 +17,28 @@ public:
     bolletta &operator=(const bolletta &);
 
 private:
-    class C_privata;
-    C_privata *punt;
+    class nodo
+    { // nascosto perchè è un modo usato per implementare
+        // la struttura che deve restare nascosto all'utente
+
+    public: // non ha la parte privata quindi tutte le funzioni
+            //di bolletta hanno accesso a tutti i dati della classe nodo
+        nodo();
+        nodo(const telefonata &, nodo *);
+        telefonata info;
+        nodo *next;
+        ~nodo(); // cosi però se voglio rimuovere un nodo in mezzo alla lista devo
+                 // mettere next = nullptr perche altrimenti distruggo tutta la lista restante
+        static nodo *copia(nodo *p)
+        {
+            if (!p)
+                return nullptr;
+            else
+                return new nodo(p->info, copia(p->next));
+        };
+    };
+
+    nodo *first;
 };
 
 #endif
