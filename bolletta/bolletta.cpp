@@ -1,30 +1,14 @@
 #include "bolletta.h"
-//================ metodi e classi private bolletta
-
-bolletta::bolletta() : first(new nodo()) {}
-//costruttore di default per il campo nodo
-bolletta::nodo::nodo() : next(0){};
-bolletta::nodo::nodo(const telefonata &t, nodo *s) : info(t), next(s) {}
+//================ metodi e classi private bolletta ============
 bolletta::nodo::~nodo()
 {
     //if (next != nullptr) // non necessario perche delete nullptr non fa niente
     delete next;
 };
-bolletta::bolletta &bolletta::operator=(const bolletta &b)
-{
-    if (&b != this) // messo perche: bug nel caso in cui faccio b = b
-                    // --> attenzione quando ho un array di bollette
-    {
-        delete first;
-        first = first->copia(b.first); // ha senso?????????????????
-    }
-    return *this;
-}
 // ============= metodi pubblici bolletta =======================
-bolletta::bolletta() : first(0){};
 bolletta::bolletta(const bolletta &b)
 {
-    first = first->copia(b.first); // ha senso??????????????????
+    first = first->copia(b.first); // ha senso perchè è un metodo statico... o?
 }
 bolletta::~bolletta()
 {
@@ -33,7 +17,7 @@ bolletta::~bolletta()
 }
 bool bolletta::Vuota() const
 {
-    return first == 0;
+    return first == nullptr;
 }
 void bolletta::Aggiungi_Telefonata(const telefonata &t)
 {
@@ -68,6 +52,16 @@ telefonata bolletta::Estrai_Una()
     delete p;
     return aux;
 }
+bolletta::bolletta &bolletta::operator=(const bolletta &b)
+{
+    if (&b != this) // messo perche: bug nel caso in cui faccio b = b
+                    // --> attenzione quando ho un array di bollette
+    {
+        delete first;
+        first = first->copia(b.first); // ha senso?????????????????
+    }
+    return *this;
+}
 std::ostream &operator<<(std::ostream &os, const bolletta &b)
 {
     os << "telefonate nella bolletta:" << std::endl;
@@ -80,3 +74,4 @@ std::ostream &operator<<(std::ostream &os, const bolletta &b)
     }
     return os;
 }
+// ================ iteratore =================
