@@ -18,14 +18,7 @@ private:
         nodo *next;
         ~nodo(); // cosi però se voglio rimuovere un nodo in mezzo alla lista devo
                  // mettere next = nullptr perche altrimenti distruggo tutta la lista restante
-        static nodo *copia(nodo *p)
-            /* {
-            if (!p)
-                return nullptr;
-            else
-                return new nodo(p->info, copia(p->next));
-        } */
-            ;
+        static nodo *copia(nodo *p);
     };
     // ================ fine classe nodo ===============
     nodo *first;

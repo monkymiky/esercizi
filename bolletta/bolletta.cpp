@@ -5,6 +5,13 @@ bolletta::nodo::~nodo()
     //if (next != nullptr) // non necessario perche delete nullptr non fa niente
     delete next;
 };
+bolletta::nodo *bolletta::nodo::copia(nodo *p)
+{
+    if (!p)
+        return nullptr;
+    else
+        return new nodo(p->info, copia(p->next));
+}
 // ============= metodi pubblici bolletta =======================
 bolletta::bolletta(const bolletta &b)
 {
