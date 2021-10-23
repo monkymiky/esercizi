@@ -6,6 +6,8 @@
 
 class orario
 {
+    friend orario operator+(orario const &, orario const &);
+
 public:
     orario(int, int, int = 0);
     orario(int);
@@ -18,13 +20,13 @@ public:
     void AvanzaUnOra();
     bool operator==(orario) const;
     void operator=(orario);
+    orario operator-(const orario &) const;
     orario(const orario &);
 
 private:
-    class orario_rapp;
+    class orario_rapp; // per nascondere l implementazione
     orario_rapp *punt;
 };
 std::ostream &operator<<(std::ostream &os, orario const &o);
-orario::orario operator+(orario const &o1, orario const &o2);
 
 #endif

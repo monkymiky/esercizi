@@ -75,3 +75,60 @@ std::ostream &operator<<(std::ostream &os, const bolletta &b)
     return os;
 }
 // ================ iteratore =================
+bool bolletta::iteratore::operator==(iteratore it) const
+{
+    return punt == it.punt;
+}
+bool bolletta::iteratore::operator!=(iteratore it) const
+{
+    return punt != it.punt;
+}
+bolletta::iteratore &bolletta::iteratore::operator++() // prefisso
+{
+    if (punt)
+        punt = punt->next;
+    return *this;
+}
+bolletta::iteratore bolletta::iteratore::operator++(int)
+{
+    iteratore aux = *this;
+    if (punt)
+        punt = punt->next;
+    return aux;
+}
+telefonata &bolletta::operator[](iteratore it) const // non usuale per un contenitore implementato
+// con una lista per l accesso non in tempo costante che ci si aspetterebbe
+{
+    return it.punt->info;
+}
+telefonata &bolletta::iteratore::operator*() const
+{
+    return punt->info;
+}
+telefonata *bolletta::iteratore::operator->() const
+{
+    return &(punt->info);
+}
+bolletta::iteratore bolletta::begin() const
+{
+    iteratore aux;
+    aux.punt = first;
+    return aux;
+}
+bolletta::iteratore bolletta::end() const
+{
+    iteratore aux;
+    aux.punt = nullptr;
+    return aux;
+}
+telefonata &bolletta::operator[](iteratore it) const
+{
+    return (it.punt)->info; // nessun controllo per i.punt != nullptr, ci deve pensare l utente.
+}
+orario bolletta::Somma_Durate(const bolletta &b) const
+{
+    orario somma;
+    for (bolletta::iteratore it = b.begin(); it != b.end(); ++it)
+        somma = somma + (b[it].GetFine() - b[it].GetInizio());
+    return somma;
+}

@@ -48,15 +48,22 @@ public:
         bolletta::nodo *punt;
 
     public:
-        bool operator==(iteratore &) const;
-        bool operator!=(iteratore &) const;
+        //costruttore di default, non serve ridefinirlo
+        bool operator==(iteratore) const;
+        bool operator!=(iteratore) const;
         iteratore &operator++();
         iteratore operator++(int);
-        iteratore &operator[](unsigned int);
-        iteratore &operator*(int);
-        // iteratore& operator->();
+        telefonata &operator*() const;  //operatore unario
+        telefonata *operator->() const; //operatore unario // il tipo di ritorno deve supportare l operatore "->" (in questo caso è un puntatore --> ok)
     };
     // ======== fine classe iteratore ===============
+    //classi del contenitore che permettono di usare l iteratore
+    iteratore begin() const;
+    iteratore end() const;
+    telefonata &operator[](iteratore) const; // non usuale per un contenitore implementato
+                                             // con una lista per l accesso non in tempo costante che ci si aspetterebbe
+    // metodi di bolletta che fanno uso di iteratori
+    orario Somma_Durate(const bolletta &b) const; // max 24 ore!
 };
 
 #endif

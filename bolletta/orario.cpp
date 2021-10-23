@@ -17,10 +17,7 @@ orario::orario orario::UnOraPiuTardi() const
     return aux;
 };
 void orario::AvanzaUnOra() { punt->sec = punt->sec + 3600 % 86400; }
-orario::orario operator+(orario::orario const &o1, orario::orario const &o2){
-    //orario::orario aux = (o1.sec + o2.sec) % 86400; sbagliato perche sec è privato!
-    //return aux;
-};
+
 std::ostream &operator<<(std::ostream &os, orario::orario o)
 {
     std::string ore, m, s;
@@ -45,3 +42,11 @@ orario::orario(const orario &o) : punt(new orario_rapp)
 {
     punt->sec = o.punt->sec;
 }
+orario::orario operator+(orario const &o1, orario const &o2)
+{
+    return orario((o1.punt->sec + o2.punt->sec) % 86400);
+};
+orario::orario orario::operator-(const orario &o) const
+{ //orario negativo?
+    return orario((punt->sec - o.punt->sec));
+};
