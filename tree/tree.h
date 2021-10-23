@@ -1,3 +1,5 @@
+#ifndef TREE_H
+#define TREE_H
 class Nodo
 {
     friend class Tree;
@@ -21,3 +23,4 @@ private:
     Nodo *root;
     static Nodo *copia(const Nodo *);
 };
+#endif
