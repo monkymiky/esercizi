@@ -22,8 +22,11 @@ private:
     nodo *inizio;
 
 public:
+    unsigned int size;
     class iteratore
     {
+        friend class Vettore;
+
     private:
         nodo *punt;
 
@@ -33,17 +36,19 @@ public:
         bool operator==(iteratore);
         bool operator!=(iteratore);
         int operator*() const;
-        int &operator->() const;
+        int *operator->() const;
     };
     iteratore begin() const;
     iteratore end() const;
+    iteratore last() const;
     int &operator[](iteratore) const;
     Vettore() : inizio(new nodo(0, nullptr)){};
-    Vettore operator+() const;
-    Vettore &append(Vettore);
-    bool operator==(const Vettore &) const;
+
+    Vettore &append(int);
+    bool operator==(const Vettore &);
     Vettore(const Vettore &);
     Vettore &operator=(Vettore);
     ~Vettore();
 };
 #endif
+// Lezione PaO 19-10-2021 min 51
